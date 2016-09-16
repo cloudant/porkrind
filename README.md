@@ -103,14 +103,15 @@ You could also write `matches([tail(Matcher)])` to assert that all elements in t
 
 ### Matching Records
 
-One of the nice uses about matches is that you can quite easily use it to build matchers for any record. For example:
+One of the nice uses for `matches` is that you can quite easily use it to build matchers for any record. For example:
 
 
 	-record(foo, {
 	    id = <<"whee">>,
 	    count = 3,
 	    items = [a, b, c],
-	    ignored = i_dont_care
+	    ignored = i_dont_care,
+	    also_ignored = still_dont_care
 	}).
 
 	RecordMatcher = #foo{
