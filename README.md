@@ -1,10 +1,10 @@
-Porkrind
-===
+# Porkrind
+
 
 A Hamcrest library for Erlang. Ham Crest. Pork ridge. Pork rind!
 
-About Hamcrest Matchers
----
+## About Hamcrest Matchers
+
 
 [Hamcrest][hamcrest] was originally written in Java as a way to make unit testing more expressive for the intent of the test. That is, instead of writing something like such:
 
@@ -36,8 +36,7 @@ Or alternatively using a couple helpers:
     ]))
 
 
-How to Use Porkrind
----
+## How to Use Porkrind
 
 Simply add the include to your tests:
 
@@ -46,8 +45,8 @@ Simply add the include to your tests:
 This pulls in the `?assert_that/2` macro and imports all of the builtin matchers.
 
 
-Builtin Matchers
----
+## Automatic Matcher Creation
+
 
 Where it makes sense, any matcher argument can also be any term that is then wrapped with `is(equal_to(Term))`. Thus you can do things like:
 
@@ -58,7 +57,7 @@ without the need to wrap each of `4`, `5`, and `6` with `is(equal_to(N))`. And, 
     ?assert_that({error, something_broke}, matches({error, '_'}))
 
 
-### Matcher Helpers
+## Matcher Helpers
 
 These helpers allow you to create matchers from nested lists and tuples. Both of the `matches*` and `matching*` versions are identical and only exist to help with readability. (I.e., `has_item(matching(...))` vs `has_item(matches(...))`)
 
