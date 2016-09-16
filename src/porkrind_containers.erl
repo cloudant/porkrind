@@ -141,7 +141,7 @@ contains_int(Matchers0) ->
     Matchers = lists:map(fun porkrind_util:maybe_wrap/1, Matchers0),
     #'porkrind.matcher'{
         name = contains,
-        args = Matchers0,
+        args = [Matchers0],
         match = fun(Values) ->
             case apply_contains_matchers(Values, Matchers) of
                 ok -> ok;
@@ -186,7 +186,7 @@ contains_inanyorder_int(Matchers0) ->
     Matchers = lists:map(fun porkrind_util:maybe_wrap/1, Matchers0),
     #'porkrind.matcher'{
         name = contains_inanyorder,
-        args = Matchers0,
+        args = [Matchers0],
         match = fun(Values) ->
             if length(Values) == length(Matchers) -> ok; true ->
                 ?PR_FAIL({bad_length, Values})
@@ -217,7 +217,7 @@ only_contains_int(Matchers0) ->
     AnyOfMatcher = porkrind_logic:any_of(Matchers),
     #'porkrind.matcher'{
         name = only_contains,
-        args = Matchers0,
+        args = [Matchers0],
         match = fun(Values) ->
             lists:foreach(fun(Value) ->
                 porkrind:match(Value, AnyOfMatcher)
@@ -226,8 +226,9 @@ only_contains_int(Matchers0) ->
     }.
 
 
-tuple_wrap(#'porkrind.matcher'{match = Match} = M) ->
+tuple_wrap(#'porkrind.matcher'{args = [Arg], match = Match} = M) ->
     M#'porkrind.matcher'{
+        args = [list_to_tuple(Arg)],
         match = fun(Tuple) ->
             Match(tuple_to_list(Tuple))
         end
