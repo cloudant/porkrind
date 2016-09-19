@@ -108,7 +108,7 @@ contains_inanyorder(Matchers0) when is_tuple(Matchers0) ->
 
 
 only_contains(Matcher) when ?IS_MATCHER(Matcher) ->
-    erlang:error({badarg, Matcher});
+    only_contains_single(Matcher);
 
 only_contains(Matchers0) when is_list(Matchers0) ->
     M = only_contains_int(Matchers0),
@@ -123,7 +123,11 @@ only_contains(Matchers0) when is_tuple(Matchers0) ->
     porkrind_logic:all_of([
         porkrind_types:is_tuple(),
         M2
-    ]).
+    ]);
+
+
+only_contains(Term) ->
+    only_contains_single(Term).
 
 
 tail(Matcher0) ->
@@ -224,6 +228,30 @@ only_contains_int(Matchers0) ->
             end, Values)
         end
     }.
+
+
+only_contains_single(Matcher0) ->
+    Matcher = porkrind_util:maybe_wrap(Matcher0),
+    M1 = #'porkrind.matcher'{
+        name = only_contains,
+        args = [Matcher0],
+        match = fun(Values0) ->
+            Values = case Values0 of
+                _ when is_list(Values0) -> Values0;
+                _ when is_tuple(Values0) -> tuple_to_list(Values0)
+            end,
+            lists:foreach(fun(Value) ->
+                porkrind:match(Value, Matcher)
+            end, Values)
+        end
+    },
+    porkrind_logic:all_of([
+        porkrind_logic:any_of([
+            porkrind_types:is_list(),
+            porkrind_types:is_tuple()
+        ]),
+        M1
+    ]).
 
 
 tuple_wrap(#'porkrind.matcher'{args = [Arg], match = Match} = M) ->

@@ -61,8 +61,7 @@ badarg_test() ->
     % matcher record.
     Matcher = is(anything()),
     ?assertError({badarg, Matcher}, contains(Matcher)),
-    ?assertError({badarg, Matcher}, contains_inanyorder(Matcher)),
-    ?assertError({badarg, Matcher}, only_contains(Matcher)).
+    ?assertError({badarg, Matcher}, contains_inanyorder(Matcher)).
 
 
 contains_test() ->
@@ -170,6 +169,7 @@ only_contains_test() ->
 
     ?assert_that([1, foo, 4, -10, foo], only_contains(ListMatchers)),
     ?assert_that({1, foo, 4, -10, foo}, only_contains(TupleMatchers)),
+    ?assert_that([1, 2, 3, 4, 5, 6], only_contains(is_integer())),
 
     ?assertError(
         {assertion_failed, _},

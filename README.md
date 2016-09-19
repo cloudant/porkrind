@@ -233,7 +233,8 @@ Notice that the second example uses a list when creating the contains matcher.
 | :-- | :-- |
 | `contains(ListOrTuple)` | Matches any term that has an element that matches the corresponding matcher in `ListOrTuple` |
 | `contains_inanyorder(ListOrTuple)` | Matches any term that has elements matching each matcher in `ListOrTuple`, elements in the term are removed after a match, `ListOrTuple` is applied left to right |
-| `only_contains(ListOrTule)` | Matches any term that only contains elements that match any matcher in `ListOrTuple` |
+| `only_contains(Term)` | Matches any term that only contains elements that match any matcher in `Term`, if `Term` is not a list or tuple, it is treated as a matcher and can match either a list or tuple |
+
 
 
 ### Function Call Matchers
