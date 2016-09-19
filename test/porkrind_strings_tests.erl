@@ -144,6 +144,20 @@ ends_with_test() ->
     check_failure(FailurePairs, fun(E) -> ends_with(E) end).
 
 
+equal_to_string_test() ->
+    ?assert_that(<<"foo">>, is(equal_to_string("foo"))),
+    ?assert_that(["foo bar"], is(equal_to_string(<<"foo bar">>))),
+
+    ?assertError(
+        {assertion_failed, _},
+        ?assert_that(<<"foo">>, is(equal_to_string("bar")))
+    ),
+    ?assertError(
+        {assertion_failed, _},
+        ?assert_that(foo, is(equal_to_string("foo")))
+    ).
+
+
 equal_ignoring_case_test() ->
     Run = fun(Cases) ->
         lists:foreach(fun(C1) ->

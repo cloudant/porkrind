@@ -194,6 +194,7 @@ The string matchers apply to anything that is accepted by `erlang:iolist_to_bina
 | `contains_string(String)` | Matches any string that has `String` as a substring |
 | `starts_with(String)` | Matches any string that has `String` as a prefix |
 | `ends_with(String)` | Matches any string that has `String` as a suffix |
+| `equal_to_string(String)` | Matches any string equal to `String` |
 | `equal_ignoring_case(String)` | Matches any string that is equivalent to `String` after a to_lower on both |
 | `equal_ignoring_whitespace(String)` | Matches any string that is equivalent to `String` after any `$\n`, `$\r`, `$\t`, and `$\s` characters have been removed from both |
 | `matches_re(String)` | Matches any string that satisifies the regular expression, `String` |

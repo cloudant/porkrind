@@ -129,6 +129,7 @@
     contains_string/1,
     starts_with/1,
     ends_with/1,
+    equal_to_string/1,
     equal_ignoring_case/1,
     equal_ignoring_whitespace/1,
     matches_re/1,

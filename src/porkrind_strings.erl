@@ -27,6 +27,7 @@
     starts_with/1,
     ends_with/1,
 
+    equal_to_string/1,
     equal_ignoring_case/1,
     equal_ignoring_whitespace/1,
 
@@ -125,6 +126,26 @@ ends_with(Pattern0) ->
                 io_lib:format("~p is not a string", [Value]);
             ({nomatch, Value}) ->
                 io_lib:format("~p does not end with ~p", [Value, Pattern0])
+        end
+    }.
+
+
+equal_to_string(String0) ->
+    String = to_binary(String0),
+    #'porkrind.matcher'{
+        name = equal_to_string,
+        args = [String0],
+        match = fun(Value0) ->
+            Value = to_binary(Value0),
+            if Value == String -> ok; true ->
+                ?PR_FAIL({nomatch, Value0})
+            end
+        end,
+        reason = fun
+            ({bad_type, Value}) ->
+                io_lib:format("~p is not a string", [Value]);
+            ({nomatch, Value}) ->
+                io_lib:format("~p does not equal ~p", [Value, String0])
         end
     }.
 
